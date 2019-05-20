@@ -62,8 +62,7 @@ export class ItemsController {
 
   // send data using NestJS Data Transfer Object (DTO) - which is a class with some fields
   @Post()
-  create(@Body() createItemDto: CreateItemDto): string {
-    // as in express, you use the data in a request body to pull info for your data
-    return `Name: ${createItemDto.name} Desc:${createItemDto.description}`;
+  create(@Body() createItemDto: CreateItemDto): Promise<Item> {
+    return this.itemsService.create(createItemDto);
   }
 }
