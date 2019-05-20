@@ -34,7 +34,7 @@ export class ItemsController {
   //   console.log(req.url);
   //   return res.send('Hello world!');
   // }
-  async findAll(): Promise<Item[]> {
+  findAll(): Promise<Item[]> {
     return this.itemsService.findAll();
   }
 
@@ -46,18 +46,18 @@ export class ItemsController {
 
   // alternatively:
   @Get(':id')
-  async findOne(@Param('id') id): Promise<Item> {
+  findOne(@Param('id') id): Promise<Item> {
     return this.itemsService.findOne(id);
   }
 
   @Delete(':id')
-  delete(@Param('id') id): string {
-    return `Delete ${id}`;
+  delete(@Param('id') id): Promise<Item> {
+    return this.itemsService.delete(id);
   }
 
   @Put(':id')
-  update(@Body() updateItemDto: CreateItemDto, @Param('id') id): string {
-    return `Update ${id} - Name: ${updateItemDto.name}`;
+  update(@Body() updateItemDto: CreateItemDto, @Param('id') id): Promise<Item> {
+    return this.itemsService.update(id, updateItemDto);
   }
 
   // send data using NestJS Data Transfer Object (DTO) - which is a class with some fields

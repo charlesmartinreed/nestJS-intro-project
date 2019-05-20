@@ -38,4 +38,13 @@ export class ItemsService {
     const newItem = new this.itemModel(item);
     return await newItem.save();
   }
+
+  async delete(id: string): Promise<Item> {
+    return await this.itemModel.findByIdAndRemove(id);
+  }
+
+  async update(id: string, item: Item): Promise<Item> {
+    // if there isn't one already, { new: true } means it will be created
+    return await this.itemModel.findByIdAndUpdate(id, item, { new: true });
+  }
 }
