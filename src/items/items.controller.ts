@@ -1,4 +1,5 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Body } from '@nestjs/common';
+import { CreateItemDto } from './dto/create-item.dto';
 
 @Controller('items')
 export class ItemsController {
@@ -7,5 +8,12 @@ export class ItemsController {
   // our get decorator will return all the items we have
   findAll(): string {
     return 'Get all items';
+  }
+
+  // send data using NestJS Data Transfer Object (DTO) - which is a class with some fields
+  @Post()
+  create(@Body() createItemDto: CreateItemDto): string {
+    // as in express, you use the data in a request body to pull info for your data
+    return `Name: ${createItemDto.name} Desc:${createItemDto.description}`;
   }
 }
