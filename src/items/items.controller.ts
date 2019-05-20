@@ -34,7 +34,7 @@ export class ItemsController {
   //   console.log(req.url);
   //   return res.send('Hello world!');
   // }
-  findAll(): Item[] {
+  async findAll(): Promise<Item[]> {
     return this.itemsService.findAll();
   }
 
@@ -46,8 +46,8 @@ export class ItemsController {
 
   // alternatively:
   @Get(':id')
-  findOne(@Param('id') id): string {
-    return `Item ${id}`;
+  async findOne(@Param('id') id): Promise<Item> {
+    return this.itemsService.findOne(id);
   }
 
   @Delete(':id')
