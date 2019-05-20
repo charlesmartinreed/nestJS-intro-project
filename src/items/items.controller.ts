@@ -18,10 +18,14 @@ import {
   Param,
 } from '@nestjs/common';
 import { CreateItemDto } from './dto/create-item.dto';
+import { ItemsService } from './items.service';
+import { Item } from './interfaces/item.interface';
 // import { Request, Response } from 'express';
 
 @Controller('items')
 export class ItemsController {
+  // service needs to be injected in order to use it
+  constructor(private readonly itemsService: ItemsService) {}
   // create endpoints using decorators - this one automatically tells nest to create an endpoint for us, at /items
   @Get()
   // our get decorator will return all the items we have
@@ -30,8 +34,8 @@ export class ItemsController {
   //   console.log(req.url);
   //   return res.send('Hello world!');
   // }
-  findAll(): string {
-    return 'Get all items';
+  findAll(): Item[] {
+    return this.itemsService.findAll();
   }
 
   // using req params in NestJS
